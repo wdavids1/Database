@@ -95,7 +95,6 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
     public boolean updateProduct(Product product) {
-
         try{
             ContentValues values = new ContentValues();
             values.put(COLUMN_PRODUCTNAME, product.getProductName());
@@ -109,5 +108,11 @@ public class MyDBHandler extends SQLiteOpenHelper {
         } catch (Exception ex) {
             return false;
         }
+    }
+
+    public void deleteAllProducts() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
+        onCreate(db);
     }
 }

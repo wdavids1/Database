@@ -73,27 +73,43 @@ public class DatabaseActivity extends AppCompatActivity {
         MyDBHandler dbHandler = new MyDBHandler(this, null,
                 null, 1);
 
-        int id = Integer.parseInt(idView.getText().toString());
+        try {
 
-        int quantity =
-                Integer.parseInt(quantityBox.getText().toString());
+            int id = Integer.parseInt(idView.getText().toString());
 
-        Product product =
-                new Product(id, productBox.getText().toString(), quantity);
+            int quantity =
+                    Integer.parseInt(quantityBox.getText().toString());
 
-        dbHandler.addProduct(product);
-        productBox.setText("");
-        quantityBox.setText("");
+            Product product =
+                    new Product(id, productBox.getText().toString(), quantity);
 
-        boolean result = dbHandler.updateProduct(product);
-
-        if (result)
-        {
-            idView.setText("Record Updated");
+            dbHandler.updateProduct(product);
             productBox.setText("");
             quantityBox.setText("");
+
+            boolean result = dbHandler.updateProduct(product);
+
+            if (result) {
+                idView.setText("Record Updated");
+                productBox.setText("");
+                quantityBox.setText("");
+            } else
+                idView.setText("Update Failed");
+        } catch (IllegalStateException ise) {
+            idView.setText("No Record");
+        } catch (NumberFormatException nfe) {
+            idView.setText("No Record");
         }
-        else
-            idView.setText("Update Failed");
+    }
+
+    public void deleteAllProducts (View view) {
+        MyDBHandler dbHandler = new MyDBHandler(this, null,
+                null, 1);
+
+        dbHandler.deleteAllProducts();
+
+        idView.setText("Records Deleted");
+        productBox.setText("");
+        quantityBox.setText("");
     }
 }
