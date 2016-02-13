@@ -7,4 +7,5 @@
     <string name="addButton">Add</string>
     <string name="FindButton">Find</string>
     <string name="DeleteButton">Delete</string>
+    <string name="updateButton">Update</string>
 </resources>
